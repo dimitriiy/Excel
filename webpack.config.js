@@ -3,6 +3,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 const isProd = process.env.NODE_ENV === "production";
 const isDev = !isProd;
@@ -15,13 +16,14 @@ const jsLoaders = () => {
       loader: "babel-loader",
       options: {
         presets: ["@babel/preset-env"],
+        plugins: ["@babel/plugin-proposal-class-properties"],
       },
     },
   ];
-
-  if (isDev) {
-    loaders.push("eslint-loader");
-  }
+  //
+  // if (isDev) {
+  //   loaders.push("eslint-loader");
+  // }
 
   return loaders;
 };
@@ -55,6 +57,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new ESLintPlugin({
+      files: "./src",
+    }),
     new CleanWebpackPlugin(),
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, "public/index.html"),

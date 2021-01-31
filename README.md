@@ -1,9 +1,11 @@
 # Excel
+
 Excel without framework (Vl. course).
 
 Daily coding challenge
-- [ ] 30.01.2021
-- [ ] 31.01.2021
+
+- [x] 30.01.2021
+- [x] 31.01.2021
 - [ ] 01.02.2021
 - [ ] 02.02.2021
 - [ ] 03.02.2021
