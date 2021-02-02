@@ -3,16 +3,22 @@ const CODES_CHAR = {
   Z: 90,
 };
 
-const createRow = (info, content) => {
+const createRow = (index, content) => {
+  const resizer =
+    index > 0 ? "<div class='row-resize' data-resize='row'></div>" : "";
   return `
       <div class="row">
-        <div class="row-info">${info}</div>
+        <div class="row-info">
+            ${index}
+           ${resizer}
+        </div>
         <div class="row-data">${content}</div>
       </div>
     `;
 };
 
-const createCol = (content) => `<div class="column">${content}</div>`;
+const createCol = (content) =>
+  `<div class="column">${content}<div class="col-resize" data-resize='col'></div></div>`;
 
 const createCell = (content) =>
   `<div class="cell" contenteditable="">${content}</div>`;
