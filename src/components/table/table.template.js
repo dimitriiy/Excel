@@ -18,10 +18,10 @@ const createRow = (index, content) => {
 };
 
 const createCol = (content) =>
-  `<div class="column">${content}<div class="col-resize" data-resize='col'></div></div>`;
+  `<div class="column" data-type="resizable">${content}<div class="col-resize" data-resize='col'></div></div>`;
 
-const createCell = (content) =>
-  `<div class="cell" contenteditable="">${content}</div>`;
+const createCell = (content, index) =>
+  `<div class="cell" contenteditable data-cell-number="${index}">${content}</div>`;
 
 const toChar = (_, index) => String.fromCharCode(CODES_CHAR.A + index);
 

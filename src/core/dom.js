@@ -37,6 +37,21 @@ class Dom {
       this.$el.appendChild(node);
     }
   }
+
+  closest(selector) {
+    return $(this.$el.closest(selector));
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect();
+  }
+
+  index() {
+    const children = [...this.$el.parentNode.children];
+
+    // console.log(children.findIndex);
+    return children.findIndex((el) => this.$el === el);
+  }
 }
 
 export const $ = (selector) => {
