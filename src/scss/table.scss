@@ -92,3 +92,12 @@
     }
   }
 }
+
+.slider {
+  position: absolute;
+  background: #3c74ff;
+  width: 1px;
+  top: 0;
+  z-index: 10;
+  height: 100%;
+}

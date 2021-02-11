@@ -5,9 +5,9 @@ const CODES_CHAR = {
 
 const createRow = (index, content) => {
   const resizer =
-    index > 0 ? "<div class='row-resize' data-resize='row'></div>" : "";
+    index > 0 ? "<div class='row-resize' data-resize='row' ></div>" : "";
   return `
-      <div class="row">
+      <div class="row" data-row="${index}" data-type='resizable'>
         <div class="row-info">
             ${index}
            ${resizer}
@@ -17,8 +17,8 @@ const createRow = (index, content) => {
     `;
 };
 
-const createCol = (content) =>
-  `<div class="column" data-type="resizable">${content}<div class="col-resize" data-resize='col'></div></div>`;
+const createCol = (content, index) =>
+  `<div class="column" data-type="resizable" data-col="${index}">${content}<div class="col-resize" data-resize='col'></div></div>`;
 
 const createCell = (content, index) =>
   `<div class="cell" contenteditable data-cell-number="${index}">${content}</div>`;

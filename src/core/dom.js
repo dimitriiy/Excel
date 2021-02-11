@@ -49,8 +49,19 @@ class Dom {
   index() {
     const children = [...this.$el.parentNode.children];
 
-    // console.log(children.findIndex);
     return children.findIndex((el) => this.$el === el);
+  }
+
+  get data() {
+    return this.$el.dataset;
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach((key) => {
+      if (key in this.$el.style) {
+        this.$el.style[key] = styles[key];
+      }
+    });
   }
 }
 
