@@ -63,6 +63,16 @@ class Dom {
       }
     });
   }
+
+  addClass(Class) {
+    this.$el.classList.add(Class);
+    return this;
+  }
+
+  removeClass(Class) {
+    this.$el.classList.remove(Class);
+    return this;
+  }
 }
 
 export const $ = (selector) => {

@@ -30,46 +30,69 @@ export class Table extends ExcelComponent {
 
   resizeRow(event) {
     const $resize = $(event.target);
+    const resizerDimensions = $resize.getCoords();
     const $parent = $resize.closest("[data-type='resizable']");
-    const coords = $parent.getCoords();
+    const parentDimensions = $parent.getCoords();
+    let offsetY = null;
+
+    $resize.addClass("active");
 
     const mouseMoveHandler = (e) => {
-      const delta = e.pageY - coords.bottom;
-      const updatedHeight = coords.height + delta;
+      offsetY = e.pageY - resizerDimensions.bottom + resizerDimensions.height;
 
-      $parent.css({ height: `${updatedHeight}px` });
+      $resize.css({
+        transform: `translateY(${offsetY}px)`,
+      });
     };
 
     document.addEventListener("mousemove", mouseMoveHandler);
     document.addEventListener("mouseup", () => {
+      $resize.removeClass("active");
+      $resize.css({
+        transform: "none",
+      });
+
+      const updatedHeight = offsetY + parentDimensions.height;
+
+      $parent.css({ height: `${updatedHeight}px` });
+
       document.removeEventListener("mousemove", mouseMoveHandler);
     });
   }
 
   resizeColumn(event) {
     const $resize = $(event.target);
-
-    $resize.css();
+    const resizerDimensions = $resize.getCoords();
     const $parent = $resize.closest("[data-type='resizable']");
-    const coords = $parent.getCoords();
-
+    const parentDimensions = $parent.getCoords();
     const columnIndex = +$parent.data.col;
-
-    let childCells = document.querySelectorAll(
+    const childCells = document.querySelectorAll(
       `[data-cell-number="${columnIndex}"]`
     );
 
-    const mouseMoveHandler = (e) => {
-      const delta = e.pageX - coords.right;
-      const updatedWidth = coords.width + delta;
+    $resize.addClass("active");
 
-      $parent.$el.style.width = `${updatedWidth}px`;
-      this.resizeCells(childCells, updatedWidth);
+    let offsetX = null;
+
+    const mouseMoveHandler = (e) => {
+      offsetX = e.pageX - resizerDimensions.left;
+
+      $resize.css({
+        transform: `translateX(${offsetX}px)`,
+      });
     };
 
     document.addEventListener("mousemove", mouseMoveHandler);
     document.addEventListener("mouseup", () => {
       document.removeEventListener("mousemove", mouseMoveHandler);
+
+      $resize.removeClass("active");
+      $resize.css({
+        transform: "none",
+      });
+      const updatedWidth = parentDimensions.width + offsetX;
+      $parent.$el.style.width = `${updatedWidth}px`;
+      this.resizeCells(childCells, updatedWidth);
     });
   }
 
